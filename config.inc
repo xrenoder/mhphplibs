@@ -2,6 +2,7 @@
 	define('NOPAY', false);
 	define('SIMPLE_BONUS', 0);	// simple bonus for day delegation in mhc per 100k delegation coins
 	define('MHCRYPTO', true);
+	define('NOAFF', true);		// true, if node not pay to delegators
 	
 	$rewardTime = 0;
 	
