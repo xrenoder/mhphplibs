@@ -303,12 +303,22 @@ try {
 	}
 	
 // mail	
+	
+	
 
 	Mail::init(FROM_MAIL);
 	Mail::setContentType(Mail::TYPE_PLAIN);
 	$subjPrefix = NODENAME . " $profitDate for ";	
 	
 	foreach($partners as $partner => $percent) {
+		$mail = $dataPay[$partner]['mail'];
+
+		$mail = "";
+		
+		if (!$mail) {
+			continue;
+		}
+		
 		$reportStr = "Report for " . $profitDate;
 		$reportStr .= "\nServer: " . NODENAME;
 		$reportStr .= "\nPartner: " . $partner;
@@ -334,12 +344,6 @@ try {
 
 		if ($partner == $mainPartner) {
 			$reportStr .= "\n\nDUMP: \n" . var_export($dataPay, true);
-		}
-
-		$mail = $dataPay[$partner]['mail'];
-
-		if (!$mail) {
-			continue;
 		}
 				
 		Mail::send($mail, $subjPrefix . "$partner" , $reportStr);
