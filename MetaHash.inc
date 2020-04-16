@@ -648,7 +648,7 @@ class Crypto
 			if($node_url) {
 				$list = dns_get_record($node_url, DNS_A);
 				$host_list = [];
-				
+				$logStr = "";				
 				foreach($list as $val) {
 					switch($node) {
 						case 'PROXY':
@@ -657,7 +657,7 @@ class Crypto
 							}
 						break;
 						case 'TORRENT':
-							$host_list[$val['ip'].':'.$node_port] = $this->torGetLastBlock($val['ip'].':'.$node_port);
+							$logStr = $host_list[$val['ip'].':'.$node_port] = $this->torGetLastBlock($val['ip'].':'.$node_port);
 						break;
 						default:
 							// empty
@@ -666,6 +666,7 @@ class Crypto
 				}
 				
 				if (!count($host_list)) {
+					throw new Exception('Address not reeived. Host list empty.');
 					return false;
 				}	
 				
@@ -682,6 +683,7 @@ class Crypto
 				}
 				
 				if(!$maxBlocks) {
+					throw new Exception('Address not received. Unknown last block: ' . $logStr);
 					return false;
 				}
 /*				
@@ -854,7 +856,7 @@ $result['url'] = $url;
 			}
 			else
 			{
-				throw new Exception('The proxy service is not available. Maybe you have problems with DNS.');
+				throw new Exception('The torrent service is not available. Maybe you have problems with DNS.');
 			}
 		}
 		catch(Exception $e)
