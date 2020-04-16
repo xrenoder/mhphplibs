@@ -436,7 +436,7 @@ class Crypto
 	private $torrent = ['url' => 'tor.net-%s.metahash.org', 'port' => 5795];
 	private $hosts = [];
 	
-//	private $hardTorrent = '139.162.171.234';
+	private $hardTorrent = '88.208.30.164';
 	
 	public function __construct($ecdsa)
 	{
@@ -657,11 +657,24 @@ class Crypto
 							}
 						break;
 						case 'TORRENT':
-							$logStr = $host_list[$val['ip'].':'.$node_port] = $this->torGetLastBlock($val['ip'].':'.$node_port);
+							$host_list[$val['ip'].':'.$node_port] = $this->torGetLastBlock($val['ip'].':'.$node_port);
 						break;
 						default:
 							// empty
 						break;
+					}
+				}
+				
+				if ($this->hardTorrent) {
+					switch($node) {
+						case 'PROXY':
+							break;
+						case 'TORRENT':
+							$host_list[$this->hardTorrent.':'.$node_port] = $this->torGetLastBlock($this->hardTorrent . ':' . $node_port);
+							break;
+						default:
+							// empty
+							break;
 					}
 				}
 				
@@ -686,18 +699,7 @@ class Crypto
 					throw new Exception('Address not received. Unknown last block: ' . $logStr);
 					return false;
 				}
-/*				
-				switch($node) {
-					case 'PROXY':
-						break;
-					case 'TORRENT':
-						$host_list[$this->hardTorrent.':'.$node_port] = $maxBlocks;
-						break;
-					default:
-							// empty
-						break;
-				}
-*/
+
 				$this->hosts[$node] = array_rand($host_list);
 				
 				echo $this->hosts[$node] . "\t\t" . $maxBlocks . "\n";
