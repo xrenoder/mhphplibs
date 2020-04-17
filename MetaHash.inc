@@ -432,11 +432,12 @@ class Crypto
 	public $debug = false;
 	public $net = null;
 	private $curl = null;
-	private $proxy = ['url' => 'proxy.net-%s.metahash.org', 'port' => 9999];
-	private $torrent = ['url' => 'tor.net-%s.metahash.org', 'port' => 5795];
+	private $proxy = ['url' => 'proxy.net-%s.metahashnetwork.com', 'port' => 9999];
+	private $torrent = ['url' => 'tor.net-%s.metahashnetwork.com', 'port' => 5795];
 	private $hosts = [];
 	
-	private $hardTorrent = '88.208.30.164';
+//	private $hardTorrent = '88.208.30.164';
+	private $hardTorrent = '';
 	
 	public function __construct($ecdsa)
 	{
@@ -648,7 +649,7 @@ class Crypto
 			if($node_url) {
 				$list = dns_get_record($node_url, DNS_A);
 				$host_list = [];
-				$logStr = "";				
+				
 				foreach($list as $val) {
 					switch($node) {
 						case 'PROXY':
@@ -696,13 +697,13 @@ class Crypto
 				}
 				
 				if(!$maxBlocks) {
-					throw new Exception('Address not received. Unknown last block: ' . $logStr);
+					throw new Exception('Address not received. Unknown last block');
 					return false;
 				}
 
 				$this->hosts[$node] = array_rand($host_list);
 				
-				echo $this->hosts[$node] . "\t\t" . $maxBlocks . "\n";
+//				echo $this->hosts[$node] . "\t\t" . $maxBlocks . "\n";
 				
 				return $this->hosts[$node];
 			}
@@ -795,7 +796,7 @@ class Crypto
 					var_dump($result);
 				}
 				$result = json_decode($result, true);
-$result['url'] = $url;
+				$result['url'] = $url;
 				return $result;
 			}
 			else
@@ -853,7 +854,7 @@ $result['url'] = $url;
 					var_dump($result);
 				}
 				$result = json_decode($result, true);
-$result['url'] = $url;
+				$result['url'] = $url;
 				return $result;
 			}
 			else
