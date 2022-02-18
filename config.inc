@@ -35,11 +35,10 @@
 
 	define('CLASS_DIR', SCRIPT_DIR . '/classes');
 	
-	define('COMMON_DIR', SCRIPT_DIR . '/..');
+	define('COMMON_DIR', ROOT_DIR . '/../..');
 	
 	define('OWNER_POOL_FILE', COMMON_DIR . "/owner_pool");
 	define('PREV_REWARD_FILE', COMMON_DIR . "/prev_reward");
-	define('PROFIT_DIR', COMMON_DIR . "/profit");
 	define('MAIL_DIR', COMMON_DIR . '/mail');
 	
 	$partners = array();
