@@ -53,11 +53,8 @@
 //	if(file_exists(REPORTS_DIR) == false)
 //		throw new Exception('`reports` directory not found');
 	
-//	if(file_exists(KEY_FILE) == false)
-//		throw new Exception('`main_key` file not found');
-	
-//	if(file_exists(IP_FILE) == false)
-//		throw new Exception('`ip` file not found');
+	if(file_exists(KEY_FILE) == false)
+		throw new Exception(KEY_FILE file not found');
 	
 	if(file_exists(OWNER_POOL_FILE) == false)
 		throw new Exception('`owner_pool` file not found');	
