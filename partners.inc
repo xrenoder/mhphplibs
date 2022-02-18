@@ -16,23 +16,12 @@ try {
 	$ecdsa = new Ecdsa();
 	$crypto = new Crypto($ecdsa);
 	$crypto->net = MHNET;
-	
-	$profitDate = gmdate("Y-M-d", ($today - (DAYSEC * 2)));
-	$profitFile = PROFIT_DIR . "/" . $profitDate;
-	
-	if (NOAFF) {
-		$profitFile = PROFIT_DIR . "/noaff";
-	}
-	
-	if (!is_file($profitFile) || !filesize($profitFile)) {
-		Base::log("All profits already shared");
-		Base::end();
-	}
-	
+				
 	$dataPay = array();
 	
 	foreach($partners as $partner => $percent) {
-		$partnerFile = PROFIT_DIR . "/" . $partner;
+		$partnerFile = ROOT_DIR . "/" . $partner;
+
 		if (!is_file($partnerFile)) {
 			Base::end("No partner file for $partner");
 		}
@@ -64,21 +53,10 @@ try {
 	
 	$okStr = "OK   ";
 	$failStr = "FAIL ";
-	$testStr = "TEST ";	
-	
-	$profits = file($profitFile);	
-	
-	foreach($profits as $val) {
-		if (!trim($val)) {
-			continue;
-		}
+	$testStr = "TEST ";
 		
-		$tmp = explode("\t", trim($val));
-		$nodeName = $tmp[0];
-		$node = $tmp[1];
-		$profit = $tmp[2];
-		
-		$keyFile = COMMON_DIR . "/" . $node . "/main_key"; 
+		$node = NODENAME;
+		$keyFile = KEY_FILE; 
 		
 		$nodePrivateKey = trim(Base::fileRead($keyFile));
 	
@@ -103,14 +81,12 @@ try {
 			$balance = $balanceData['result']['received'] - $balanceData['result']['spent'];
 		}		
 		
-		if (NOAFF) {
-			$profit = $balance;
-		}
+		$profit = $balance;
 		
 		$sumProfit += $profit;
 		
 		$dataPay[$node] = array();
-		$dataPay[$node]['desc'] = $nodeName . " profit: " . ($profit /  MHDIV);
+		$dataPay[$node]['desc'] = $node . " profit: " . ($profit /  MHDIV);
 		$dataPay[$node][$mainPartner] = 0;
 		$dataPay[$node]['start'] = 0;
 		$dataPay[$node]['end'] = 0;
@@ -292,7 +268,6 @@ try {
 		
 		$dataPay[$node]['end'] = $balance;
 		$sumEndBalance += $balance;
-	}
 	
 	if (!$problems) {
 		$problems = "NO PROBLEMS";
