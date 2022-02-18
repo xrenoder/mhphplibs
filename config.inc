@@ -53,8 +53,6 @@
 	define('DATA_DIR', ROOT_DIR . '/data');
 	define('REPORTS_DIR', ROOT_DIR . '/reports');
 	
-	define('IP_FILE', PARENT_DIR . "/ip");
-	define('KEY_FILE', PARENT_DIR . "/main_key");
 	define('LOCK_FILE', ROOT_DIR . "/lock");
 	define('LOG_FILE', ROOT_DIR . "/work.log");
 	define('ERR_FILE', ROOT_DIR . "/work.err");
