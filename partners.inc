@@ -13,6 +13,8 @@ try {
 	$preyest = $yest - DAYSEC;
 	$tomor = $today + DAYSEC;
 	
+	$profitDate = gmdate("Y-M-d", ($today - (DAYSEC * 2)));
+	
 	$ecdsa = new Ecdsa();
 	$crypto = new Crypto($ecdsa);
 	$crypto->net = MHNET;
@@ -273,13 +275,11 @@ try {
 		$problems = "NO PROBLEMS";
 		
 		if (!NOPAY && !NOAFF) {
-			unlink($profitFile);
+//			unlink($profitFile);
 		}
 	}
 	
 // mail	
-	
-	
 
 	Mail::init(FROM_MAIL);
 	Mail::setContentType(Mail::TYPE_PLAIN);
