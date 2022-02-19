@@ -54,7 +54,7 @@
 //		throw new Exception('`reports` directory not found');
 	
 	if(file_exists(KEY_FILE) == false)
-		throw new Exception(KEY_FILE file not found');
+		throw new Exception('`KEY_FILE` file not found');
 	
 	if(file_exists(OWNER_POOL_FILE) == false)
 		throw new Exception('`owner_pool` file not found');	
