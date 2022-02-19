@@ -97,7 +97,7 @@ try {
 		
 		if (!$profit) {
 			Base::log("Zero profit at $node");
-			continue;
+			Base::end();
 		}
 	
 		$dataPay[$node]['start'] = $balance;
